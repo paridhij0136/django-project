@@ -8,17 +8,23 @@
   <link rel="stylesheet" href="{% static 'purple.css' %}">
 </head>
 <body>
-  <div class="container">
-    <div class="left-panel">
-      <img src="https://wallpaperbat.com/img/269478-space-fantasy-wallpaper-for-iphone.jpg" alt="Creative Portrait" />
-    </div>
-    <div class="right-panel">
-      <form method="POST">
-        {% csrf_token %}
-        <h2>Enter your details</h2>
+  <div class="form-container">
+        {% if error %}
+       <div class="error-box">
+        {{ error }}
+        </div>
+        {% endif %}
 
-        <input type="text" name="name" placeholder="Full Name" required />
-        <input type="email" name="email" placeholder="Email" required />
+        {% if success %}
+        <p style="color: white;">✔️ Form submitted successfully!</p>
+        {% endif %}
+
+    <h2>Enter your details</h2>
+      <form class="anime-form" method="POST">
+        {% csrf_token %}
+
+        <input type="text" name="name" value="{{user.username}}" readonly/>
+        <input type="email" name="email"value="{{user.email}}" readonly />
         <input type="text" name="admission_number" placeholder="Admission Number" required />
         <input type="text" name="branch" placeholder="Branch" required />
         <input type="number" name="year" placeholder="Year" required />
@@ -30,11 +36,12 @@
 
         <button type="submit">Submit</button>
       </form>
+        
 
       {% if success %}
-        <p style="color: green;">✔️ Form submitted successfully!</p>
+        <p style="color: white;">✔️ Form submitted successfully!</p>
       {% endif %}
-    </div>
   </div>
+
 </body>
 </html>
